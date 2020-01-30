@@ -1,25 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+import ViewMenu from './ViewMenu';
+
+const AppContainer = styled.section`
+  @import url('https://use.typekit.net/hkh4msx.css');
+  font-family: fira-sans, sans-serif;
+`;
+
+const AppHeader = styled.header`
+  font-weight: normal;
+  position: fixed;
+  right: 0;
+  background: #ffffff88;
+  padding-top: 5px;
+  display: flex;
+  align-items: center;
+`;
+
+const AppH1 = styled.h1`
+  font-size: 1em;
+  margin: 0 40px 0 5px;
+  padding: 0;
+  display: inline-block;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <AppHeader className={'bp3-navbar bp3-align-right'}>
+        <AppH1>Sydney Shipping</AppH1>
+        <ViewMenu></ViewMenu>
+      </AppHeader>
+    </AppContainer>
   );
 }
 
