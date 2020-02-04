@@ -1,27 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ButtonGroup, Button } from '@blueprintjs/core';
+import { Navbar, ButtonGroup, Button, Menu, Popover, OverflowList } from '@blueprintjs/core';
 
-const ViewMenuContainer = styled.div`
+const ViewMenuContainer = styled(OverflowList)`
   display: flex;
   align-items: center;
 `;
 
-const ViewMenuLabel = styled.div`
-  margin-right: 8px;
-`;
+const getItems = () => [
+  <span>View: &nbsp;</span>,
+  <ButtonGroup minimal={false}>
+    <Button icon="layer">Full</Button>
+    <Button icon="flame">Compact</Button>
+    <Button>List</Button>
+  </ButtonGroup>,
+  <Navbar.Divider />,
+  <span>Captures By:&nbsp;</span>,
+  <ButtonGroup minimal={false}>
+    <Button icon="calendar" active={true}>
+      Date
+    </Button>
+    <Button icon="layer">Ship</Button>
+    <Button icon="flame">Special</Button>
+  </ButtonGroup>,
+];
 
 export const ViewMenu = () => {
   return (
-    <ViewMenuContainer>
-      <ViewMenuLabel>View:</ViewMenuLabel>
-      <ButtonGroup minimal={false}>
-        <Button icon="calendar" active={true}>
-          By Date
-        </Button>
-        <Button icon="layer">By Ship</Button>
-        <Button icon="flame">Special</Button>
-      </ButtonGroup>
-    </ViewMenuContainer>
+    <ViewMenuContainer
+      items={getItems()}
+      visibleItemRenderer={(i, ind) => i}
+      overflowRenderer={() => <h2>Render</h2>}
+    />
   );
 };
