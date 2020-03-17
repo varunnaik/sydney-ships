@@ -1,26 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-import CaptureItem from './CaptureItem';
+import CaptureItem from '../CaptureItem';
 
 const CaptureRowContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-contnent: flex-start;
-
-  @media (screen) and max-width(400px) {
+  margin-bottom: 1px;
+  @media screen and (max-width: 500px) {
     flex-direction: column;
   }
 `;
 
 const CaptureRowTitle = styled.h6`
   font-weight: bold;
-  width: 1em;
+  max-width: 1.3em;
+  text-align: center;
   text-orientation: sideways;
   box-sizing: border-box;
-  border-right: 2px solid #88cccc;
+  background: #dd8888;
+  writing-mode: sideways-lr;
+  margin: 0;
 
-  @media (screen) and max-width(400px) {
+  @media screen and (max-width: 500px) {
+    max-width: 100%;
+    writing-mode: horizontal-tb;
     text-orientation: normal;
     border-right: 0;
     border-top: 2px solid #88cccc;
@@ -28,13 +31,13 @@ const CaptureRowTitle = styled.h6`
 `;
 
 export const CaptureRow = props => {
-  const { captureRowTitle, captureRowItems } = props;
-
+  const { title, items } = props;
+  console.log(items);
   return (
     <CaptureRowContainer>
-      <CaptureRowTitle>{captureRowTitle}</CaptureRowTitle>
-      {captureRowItems.map(item => (
-        <CaptureItem item={item} numItems={captureRowItems.length} />
+      <CaptureRowTitle>{title}</CaptureRowTitle>
+      {items.map(item => (
+        <CaptureItem item={item} numItems={items.length} />
       ))}
     </CaptureRowContainer>
   );
