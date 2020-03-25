@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const CaptureItemContainer = styled.div`
   box-sizing: border-box;
-  min-width: 200px;
-  height: 170px;
+  min-width: 280px;
+  height: 190px;
   background: #ccc;
   margin-right: 1px;
   margin-bottom: 1px;
@@ -12,22 +12,31 @@ const CaptureItemContainer = styled.div`
   display: inline-block;
 `;
 
-const CaptureItemTitle = styled.h6`
-  font-weight: bold;
-  width: 1em;
-  text-orientation: sideways;
-  box-sizing: border-box;
-  border-right: 2px solid #88cccc;
-
-  @media screen and (max-width: 500px) {
-    text-orientation: normal;
-    border-right: 0;
-    border-top: 2px solid #88cccc;
+const CaptureItemTitle = styled.div`
+  display: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  padding-left: 8px;
+  @media screen and (max-width: 600px) {
   }
+`;
+
+const CaptureItemPoster = styled.img`
+  min-height: 165px;
+  padding: 0;
+  margin: 0;
 `;
 
 export const CaptureItem = props => {
   const { item, numItems } = props;
 
-  return <CaptureItemContainer></CaptureItemContainer>;
+  return (
+    <CaptureItemContainer>
+      <CaptureItemPoster></CaptureItemPoster>
+      <CaptureItemTitle>
+        <em>12:22 AM</em> This is a ship (Passenger)
+      </CaptureItemTitle>
+    </CaptureItemContainer>
+  );
 };

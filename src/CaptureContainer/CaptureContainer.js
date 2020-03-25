@@ -13,7 +13,7 @@ const CaptureItemTitle = styled.h6`
   box-sizing: border-box;
   border-right: 2px solid #88cccc;
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 600px) {
     text-orientation: normal;
     border-right: 0;
     border-top: 2px solid #88cccc;
@@ -26,7 +26,7 @@ export const CaptureContainer = props => {
   return (
     <CaptureContainerContainer>
       {rows.map(({ items }) => (
-        <CaptureRow title={'A title'} items={items} />
+        <CaptureRow title={'12 March 2020'} items={items} />
       ))}
     </CaptureContainerContainer>
   );

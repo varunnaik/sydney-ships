@@ -26,7 +26,6 @@ function App() {
         <Navbar.Group align={Alignment.LEFT}>
           <Navbar.Heading>SydShips</Navbar.Heading>
           <Navbar.Divider />
-          <ViewMenu />
         </Navbar.Group>
       </Navbar>
       <CaptureContainer rows={captureRows} />
