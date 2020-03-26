@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef, forwardRef } from 'react';
 import styled from 'styled-components';
 import CaptureRow from '../CaptureRow';
 
@@ -20,15 +20,44 @@ const CaptureItemTitle = styled.h6`
   }
 `;
 
+const getVisibleDays = (days, position = null) => {
+  // Read last scroll position from URL
+  // If none then scroll to second page
+  // Return new page of items
+  // Update URL
+  return days.slice(0, 10);
+};
+
+const getScrollPosition = () => '2020-03-19';
+
 export const CaptureContainer = ({ rows, shipInfo }) => {
-  const days = Object.keys(rows)
+  const allDays = Object.keys(rows)
     .sort()
     .reverse();
-  console.log(shipInfo);
+
+  const daysToDisplay = getVisibleDays(allDays);
+  const scrollToDay = getScrollPosition();
+
+  const currentDay = useRef(null);
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      if (scrollToDay && currentDay.current) {
+        currentDay.current.scrollIntoView();
+        window.scrollTo(0, currentDay.current.offsetTop);
+      }
+    }, 100);
+  });
+
   return (
     <CaptureContainerContainer>
-      {days.slice(0, 10).map(day => (
-        <CaptureRow title={day} items={rows[day]} shipInfo={shipInfo} key={`capture-row-${day}`} />
+      {daysToDisplay.map(day => (
+        <CaptureRow
+          scrollIntoViewRef={scrollToDay === day ? currentDay : undefined}
+          title={day}
+          items={rows[day]}
+          shipInfo={shipInfo}
+          key={`capture-row-${day}`}
+        />
       ))}
     </CaptureContainerContainer>
   );

@@ -9,9 +9,11 @@ const CaptureItemContainer = styled.div`
   border: 1px solid #eee;
   display: flex;
   flex-direction: column;
+  min-height: 168.75px;
 
   :hover {
-    border: 1px solid #000;
+    background: rgba(187, 239, 253, 0.3);
+    border-color: #888;
     cursor: pointer;
     * > div {
       color: black;
@@ -70,7 +72,6 @@ const getShortDescription = description => {
 };
 
 export const CaptureItem = ({ item, shipInfo }) => {
-  console.log(item);
   const { description, name } = shipInfo[item.mmsi];
   return (
     <CaptureItemContainer>
