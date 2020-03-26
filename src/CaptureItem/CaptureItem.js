@@ -9,7 +9,7 @@ const CaptureItemContainer = styled.div`
   border: 1px solid #eee;
   display: flex;
   flex-direction: column;
-  min-height: 168.75px;
+  min-height: 206.75px;
 
   :hover {
     background: rgba(187, 239, 253, 0.3);
@@ -23,6 +23,7 @@ const CaptureItemContainer = styled.div`
   @media screen and (max-width: 600px) {
     margin-bottom: 6px;
     box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
+    min-height: 299px;
   }
 `;
 
@@ -58,6 +59,7 @@ const CaptureItemPoster = styled.img`
   padding: 0;
   margin: 0;
   border: 0;
+
   @media screen and (max-width: 600px) {
     max-width: 100%;
     width: 100%;

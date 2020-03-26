@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, forwardRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import CaptureRow from '../CaptureRow';
 
@@ -28,7 +28,10 @@ const getVisibleDays = (days, position = null) => {
   return days.slice(0, 10);
 };
 
-const getScrollPosition = () => '2020-03-19';
+const getScrollPosition = () => {
+  const day = window.location.hash.match(/day=([^&]*)/);
+  return day && day.pop();
+};
 
 export const CaptureContainer = ({ rows, shipInfo }) => {
   const allDays = Object.keys(rows)
@@ -36,23 +39,27 @@ export const CaptureContainer = ({ rows, shipInfo }) => {
     .reverse();
 
   const daysToDisplay = getVisibleDays(allDays);
-  const scrollToDay = getScrollPosition();
+  const [scrollToDay, setScrollToDay] = useState(getScrollPosition());
 
   const currentDay = useRef(null);
   useLayoutEffect(() => {
-    setTimeout(() => {
-      if (scrollToDay && currentDay.current) {
-        currentDay.current.scrollIntoView();
-        window.scrollTo(0, currentDay.current.offsetTop);
-      }
-    }, 100);
+    if (scrollToDay && currentDay.current) {
+      currentDay.current.scrollIntoView();
+      window.scrollTo(0, currentDay.current.offsetTop);
+      // If user types in new day scroll to it immediately
+      window.addEventListener('hashchange', () => setScrollToDay(getScrollPosition));
+
+      return () => {
+        window.removeEventListener('hashchange', () => setScrollToDay(getScrollPosition));
+      };
+    }
   });
 
   return (
     <CaptureContainerContainer>
       {daysToDisplay.map(day => (
         <CaptureRow
-          scrollIntoViewRef={scrollToDay === day ? currentDay : undefined}
+          scrollIntoViewRef={scrollToDay === day ? currentDay : undefined} // React does not like functional components using ref, so we have to call it something else here
           title={day}
           items={rows[day]}
           shipInfo={shipInfo}
