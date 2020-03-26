@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Navbar, Alignment } from '@blueprintjs/core';
 import { getCapturesByDate } from './fileparser';
 import CaptureContainer from './CaptureContainer';
+import { BASE_MEDIA_PATH, MANIFEST_FILE } from './constants';
 
 const AppContainer = styled.section`
   @import url('https://use.typekit.net/hkh4msx.css');
@@ -15,9 +16,9 @@ function App() {
 
   useEffect(() => {
     const fetchCaptures = async () => {
-      const data = await fetch(
-        'https://s3-ap-southeast-2.amazonaws.com/shippix/captures.json'
-      ).then(response => response.json());
+      const data = await fetch(`${BASE_MEDIA_PATH}${MANIFEST_FILE}`).then(response =>
+        response.json()
+      );
       setShipInfo(data.info);
       setCaptureRows(getCapturesByDate(data));
     };
