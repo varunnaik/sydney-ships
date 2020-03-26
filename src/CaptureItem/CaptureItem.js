@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BASE_MEDIA_PATH, THUMBNAILS_PATH } from '../constants';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { BASE_MEDIA_PATH, THUMBNAILS_PATH, PLACEHOLDER_THUMBNAIL } from '../constants';
 
 const CaptureItemContainer = styled.div`
   box-sizing: border-box;
@@ -54,16 +55,21 @@ const CaptureDate = styled.div`
   }
 `;
 
-const CaptureItemPoster = styled.img`
+const CaptureItemPosterContainer = styled.div`
+  background: url(${props => props.poster});
+  background-size: cover;
   width: 300px;
-  padding: 0;
-  margin: 0;
-  border: 0;
+  flex-grow: 1;
 
   @media screen and (max-width: 600px) {
     max-width: 100%;
     width: 100%;
   }
+`;
+
+const CaptureItemPoster = styled(LazyLoadImage)`
+  border: 0;
+  width: 100%;
 `;
 
 const getShortDescription = description => {
@@ -73,17 +79,24 @@ const getShortDescription = description => {
   return description.split(' ')[0].replace(/,$/, '');
 };
 
-export const CaptureItem = ({ item, shipInfo }) => {
+export const CaptureItem = ({ item, shipInfo, scrollPosition }) => {
   const { description, name } = shipInfo[item.mmsi];
+  console.log(`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${PLACEHOLDER_THUMBNAIL}`);
   return (
     <CaptureItemContainer>
       <CaptureDateTime>
         <CaptureDate>{item.dateLabel}&nbsp;</CaptureDate>
         <CaptureTime>{item.time}</CaptureTime>
       </CaptureDateTime>
-      <CaptureItemPoster
-        src={`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${item.capture}.jpg`}
-      ></CaptureItemPoster>
+      <CaptureItemPosterContainer
+        poster={`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${PLACEHOLDER_THUMBNAIL}`}
+      >
+        <CaptureItemPoster
+          scrollPosition={scrollPosition}
+          src={`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${item.capture}.jpg`}
+        ></CaptureItemPoster>
+      </CaptureItemPosterContainer>
+
       <CaptureItemTitle>
         {name} ({getShortDescription(description)})
       </CaptureItemTitle>

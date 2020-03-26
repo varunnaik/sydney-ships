@@ -30,12 +30,17 @@ const CaptureRowTitle = styled.h6`
   }
 `;
 
-export const CaptureRow = ({ title, items, shipInfo, scrollIntoViewRef }) => {
+export const CaptureRow = ({ title, items, shipInfo, scrollIntoViewRef, scrollPosition }) => {
   return (
     <CaptureRowContainer ref={scrollIntoViewRef}>
       <CaptureRowTitle>{title}</CaptureRowTitle>
       {items.map(item => (
-        <CaptureItem item={item} shipInfo={shipInfo} key={item.capture} />
+        <CaptureItem
+          item={item}
+          shipInfo={shipInfo}
+          key={item.capture}
+          scrollPosition={scrollPosition}
+        />
       ))}
     </CaptureRowContainer>
   );

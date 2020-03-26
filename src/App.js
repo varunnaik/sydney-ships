@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Navbar, Alignment } from '@blueprintjs/core';
 import { getCapturesByDate } from './fileparser';
 import CaptureContainer from './CaptureContainer';
 import { BASE_MEDIA_PATH, MANIFEST_FILE } from './constants';
@@ -28,12 +27,6 @@ function App() {
 
   return (
     <AppContainer>
-      <Navbar>
-        <Navbar.Group align={Alignment.LEFT}>
-          <Navbar.Heading>SydShips</Navbar.Heading>
-          <Navbar.Divider />
-        </Navbar.Group>
-      </Navbar>
       <CaptureContainer rows={captureRows} shipInfo={shipInfo} />
     </AppContainer>
   );
