@@ -27,7 +27,6 @@ const CaptureRowTitle = styled.h6`
     writing-mode: horizontal-tb;
     text-orientation: normal;
     border-right: 0;
-    border-top: 2px solid #88cccc;
   }
 `;
 

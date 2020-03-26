@@ -4,13 +4,11 @@ import { BASE_MEDIA_PATH, THUMBNAILS_PATH } from '../constants';
 
 const CaptureItemContainer = styled.div`
   box-sizing: border-box;
-  min-width: 300px;
   margin-right: 1px;
   margin-bottom: 1px;
   border: 1px solid #eee;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 
   :hover {
     border: 1px solid #000;
@@ -18,6 +16,11 @@ const CaptureItemContainer = styled.div`
     * > div {
       color: black;
     }
+  }
+
+  @media screen and (max-width: 600px) {
+    margin-bottom: 6px;
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
   }
 `;
 
@@ -32,6 +35,7 @@ const CaptureItemTitle = styled.div`
 `;
 
 const CaptureDateTime = styled.div`
+  display: border-box;
   padding-left: 8px;
   color: #666;
 `;
