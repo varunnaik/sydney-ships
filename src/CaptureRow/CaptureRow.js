@@ -31,14 +31,12 @@ const CaptureRowTitle = styled.h6`
   }
 `;
 
-export const CaptureRow = props => {
-  const { title, items } = props;
-  console.log(items);
+export const CaptureRow = ({ title, items, shipInfo }) => {
   return (
     <CaptureRowContainer>
       <CaptureRowTitle>{title}</CaptureRowTitle>
       {items.map(item => (
-        <CaptureItem item={item} numItems={items.length} />
+        <CaptureItem item={item} shipInfo={shipInfo} key={item.capture} />
       ))}
     </CaptureRowContainer>
   );

@@ -20,13 +20,15 @@ const CaptureItemTitle = styled.h6`
   }
 `;
 
-export const CaptureContainer = props => {
-  const { rows } = props;
-
+export const CaptureContainer = ({ rows, shipInfo }) => {
+  const days = Object.keys(rows)
+    .sort()
+    .reverse();
+  console.log(shipInfo);
   return (
     <CaptureContainerContainer>
-      {rows.map(({ items }) => (
-        <CaptureRow title={'12 March 2020'} items={items} />
+      {days.slice(0, 10).map(day => (
+        <CaptureRow title={day} items={rows[day]} shipInfo={shipInfo} key={`capture-row-${day}`} />
       ))}
     </CaptureContainerContainer>
   );

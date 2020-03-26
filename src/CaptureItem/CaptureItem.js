@@ -28,14 +28,14 @@ const CaptureItemPoster = styled.img`
   margin: 0;
 `;
 
-export const CaptureItem = props => {
-  const { item, numItems } = props;
-
+export const CaptureItem = ({ item, shipInfo }) => {
+  console.log(shipInfo, item.mmsi);
+  const { description, name } = shipInfo[item.mmsi];
   return (
     <CaptureItemContainer>
       <CaptureItemPoster></CaptureItemPoster>
       <CaptureItemTitle>
-        <em>12:22 AM</em> This is a ship (Passenger)
+        <em>{item.time}</em> {name} ({description.split(' ')[0]})
       </CaptureItemTitle>
     </CaptureItemContainer>
   );

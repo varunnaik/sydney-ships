@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Navbar, Alignment } from '@blueprintjs/core';
-import ViewMenu from './ViewMenu';
+import { getCapturesByDate } from './fileparser';
 import CaptureContainer from './CaptureContainer';
 
 const AppContainer = styled.section`
@@ -9,17 +9,22 @@ const AppContainer = styled.section`
   font-family: fira-sans, sans-serif;
 `;
 
-const captureRows = [
-  { items: [1, 2, 3, 4] },
-  { items: [1] },
-  { items: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
-  { items: [1, 2, 3, 4, 5, 6] },
-  { items: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] },
-  { items: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] },
-  { items: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] },
-];
-
 function App() {
+  const [captureRows, setCaptureRows] = useState({});
+  const [shipInfo, setShipInfo] = useState({});
+
+  useEffect(() => {
+    const fetchCaptures = async () => {
+      const data = await fetch(
+        'https://s3-ap-southeast-2.amazonaws.com/shippix/captures.json'
+      ).then(response => response.json());
+      setShipInfo(data.info);
+      setCaptureRows(getCapturesByDate(data));
+    };
+
+    fetchCaptures();
+  }, []);
+
   return (
     <AppContainer>
       <Navbar>
@@ -28,7 +33,7 @@ function App() {
           <Navbar.Divider />
         </Navbar.Group>
       </Navbar>
-      <CaptureContainer rows={captureRows} />
+      <CaptureContainer rows={captureRows} shipInfo={shipInfo} />
     </AppContainer>
   );
 }
