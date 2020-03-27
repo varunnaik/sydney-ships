@@ -70,7 +70,7 @@ export const CaptureViewer = ({ shipInfo }) => {
     <>
       <ModalTransition>
         {captureDetails && (
-          <ModalDialog width={'large'} onClose={resetHash}>
+          <ModalDialog width={'large'} onClose={resetHash} style={{ padding: 0 }}>
             <CaptureHeader>{captureDetails.name || 'unknown'}</CaptureHeader>
             <video width="100%" controls>
               <source

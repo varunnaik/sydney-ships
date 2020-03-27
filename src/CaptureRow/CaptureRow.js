@@ -16,24 +16,38 @@ const CaptureRowTitle = styled.h6`
   max-width: 1.8em;
   font-size: 13px;
   text-align: center;
-  text-orientation: sideways;
   box-sizing: border-box;
   background: #dd8888;
-  writing-mode: sideways-lr;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   margin: 0;
 
   @media screen and (max-width: 600px) {
     max-width: 100%;
-    writing-mode: horizontal-tb;
-    text-orientation: normal;
     border-right: 0;
+    background: #deebff;
+  }
+`;
+
+const TitleBox = styled.div`
+  transform: rotate(270deg);
+  width: 200px;
+  line-height: 1em;
+  @media screen and (max-width: 600px) {
+    transform: rotate(0deg);
+    width: auto;
+    line-height: auto;
   }
 `;
 
 export const CaptureRow = ({ title, items, shipInfo, scrollIntoViewRef, scrollPosition }) => {
   return (
     <CaptureRowContainer ref={scrollIntoViewRef}>
-      <CaptureRowTitle>{title}</CaptureRowTitle>
+      <CaptureRowTitle>
+        <TitleBox>{title}</TitleBox>
+      </CaptureRowTitle>
       {items.map(item => (
         <CaptureItem
           item={item}

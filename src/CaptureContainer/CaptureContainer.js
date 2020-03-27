@@ -6,6 +6,9 @@ import CaptureRow from '../CaptureRow';
 
 const CaptureContainerContainer = styled.div`
   box-sizing: border-box;
+  @media screen and (max-width: 600px) {
+    overflow-x: hidden;
+  }
 `;
 
 const getScrollPosition = allDays => {
@@ -19,7 +22,7 @@ const getScrollPosition = allDays => {
   if (!allDays.length || allDays.indexOf(day) > -1) {
     return day;
   }
-  console.log(day, allDays);
+
   // As we store ISO dates a string compare works fine
   const bestMatch = stringSimilarity.findBestMatch(day, allDays);
   return allDays[bestMatch.bestMatchIndex];
@@ -35,7 +38,6 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
   // Logic to scroll to the given day in URL
   const currentDay = useRef(null);
   useLayoutEffect(() => {
-    console.log('FIRE');
     if (scrollToDay && currentDay.current) {
       currentDay.current.scrollIntoView();
     }
@@ -52,9 +54,9 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
 
   return (
     <CaptureContainerContainer>
-      {allDays.map(day => (
+      {allDays.slice(0, 10).map(day => (
         <CaptureRow
-          scrollIntoViewRef={scrollToDay === day ? currentDay : undefined} // React does not like functional components using ref, so we have to call it something else here
+          scrollIntoViewRef={scrollToDay === day ? currentDay : undefined}
           title={day}
           scrollPosition={scrollPosition}
           items={rows[day]}

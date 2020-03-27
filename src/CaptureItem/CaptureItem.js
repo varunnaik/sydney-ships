@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import styled from 'styled-components';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { BASE_MEDIA_PATH, THUMBNAILS_PATH, PLACEHOLDER_THUMBNAIL } from '../constants';
@@ -10,7 +10,7 @@ const CaptureItemContainer = styled.div`
   border: 1px solid #eee;
   display: flex;
   flex-direction: column;
-  min-height: 206.75px;
+  min-height: 200px;
 
   :hover {
     background: rgba(187, 239, 253, 0.3);
@@ -24,7 +24,7 @@ const CaptureItemContainer = styled.div`
   @media screen and (max-width: 600px) {
     margin-bottom: 6px;
     box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
-    min-height: 299px;
+    min-height: 199px;
   }
 `;
 
@@ -60,16 +60,19 @@ const CaptureItemPosterContainer = styled.div`
   background-size: cover;
   width: 400px;
   flex-grow: 1;
+  height: 225px;
 
   @media screen and (max-width: 600px) {
     max-width: 100%;
     width: 100%;
+    max-height: 100%;
   }
 `;
 
 const CaptureItemPoster = styled(LazyLoadImage)`
   border: 0;
   width: 100%;
+  height: 100%;
 `;
 
 const getShortDescription = description => {
@@ -92,6 +95,7 @@ const setLocationHash = capture => {
 
 export const CaptureItem = ({ item, shipInfo, scrollPosition }) => {
   const { description, name } = shipInfo[item.mmsi];
+  const imgRef = createRef();
 
   return (
     <CaptureItemContainer onClick={() => setLocationHash(item.capture)}>
@@ -101,8 +105,10 @@ export const CaptureItem = ({ item, shipInfo, scrollPosition }) => {
       </CaptureDateTime>
       <CaptureItemPosterContainer
         poster={`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${PLACEHOLDER_THUMBNAIL}`}
+        child={imgRef}
       >
         <CaptureItemPoster
+          ref={imgRef}
           scrollPosition={scrollPosition}
           src={`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${item.capture}.jpg`}
         ></CaptureItemPoster>
