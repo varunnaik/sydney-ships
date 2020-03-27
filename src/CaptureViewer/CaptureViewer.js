@@ -15,7 +15,7 @@ const CloseButton = styled.div`
 
 const CaptureLabelContainer = styled.div`
   @media screen and (max-width: 600px) {
-    padding-left: 41px;
+    padding-left: 4px;
   }
 `;
 

@@ -6,6 +6,7 @@ import CaptureRow from '../CaptureRow';
 
 const CaptureContainerContainer = styled.div`
   box-sizing: border-box;
+  padding-top: 35px; /* Accomodate header menu */
   @media screen and (max-width: 600px) {
     overflow-x: hidden;
   }
