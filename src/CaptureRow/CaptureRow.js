@@ -7,13 +7,13 @@ const CaptureRowContainer = styled.div`
   flex-direction: row;
   margin-bottom: 1px;
   @media screen and (max-width: 600px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 `;
 
 const CaptureRowTitle = styled.h6`
   font-weight: bold;
-  max-width: 1.8em;
+  max-width: 1.2em;
   font-size: 13px;
   text-align: center;
   box-sizing: border-box;
@@ -35,6 +35,7 @@ const TitleBox = styled.div`
   transform: rotate(270deg);
   width: 200px;
   line-height: 1em;
+  margin-left: -1px;
   @media screen and (max-width: 600px) {
     transform: rotate(0deg);
     width: auto;

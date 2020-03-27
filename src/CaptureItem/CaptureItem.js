@@ -25,6 +25,11 @@ const CaptureItemContainer = styled.div`
     margin-bottom: 6px;
     box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
     min-height: 199px;
+    @media screen and (max-width: 600px) {
+      box-shadow: none;
+      border-right: 0;
+      border-left: 0;
+    }
   }
 `;
 
