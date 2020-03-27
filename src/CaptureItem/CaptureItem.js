@@ -70,7 +70,7 @@ const CaptureItemPosterContainer = styled.div`
   @media screen and (max-width: 600px) {
     max-width: 100%;
     width: 100%;
-    max-height: 100%;
+    height: auto;
   }
 `;
 
@@ -78,6 +78,9 @@ const CaptureItemPoster = styled(LazyLoadImage)`
   border: 0;
   width: 100%;
   height: 100%;
+  @media screen and (max-width: 600px) {
+    height: auto;
+  }
 `;
 
 const getShortDescription = description => {
