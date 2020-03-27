@@ -13,6 +13,12 @@ const CloseButton = styled.div`
   color: blue;
 `;
 
+const CaptureLabelContainer = styled.div`
+  @media screen and (max-width: 600px) {
+    padding-left: 41px;
+  }
+`;
+
 const CaptureHeader = styled.h4`
   margin-bottom: 2px;
 `;
@@ -28,6 +34,13 @@ const DetailsSpan = styled.span`
 
   & :last-child {
     border: 0;
+  }
+`;
+
+const ModalBody = styled.div`
+  padding: 10px;
+  @media screen and (max-width: 600px) {
+    padding: 0;
   }
 `;
 
@@ -70,22 +83,32 @@ export const CaptureViewer = ({ shipInfo }) => {
     <>
       <ModalTransition>
         {captureDetails && (
-          <ModalDialog width={'large'} onClose={resetHash} style={{ padding: 0 }}>
-            <CaptureHeader>{captureDetails.name || 'unknown'}</CaptureHeader>
+          <ModalDialog
+            width={'large'}
+            onClose={resetHash}
+            components={{
+              Body: React.forwardRef((props, ref) => (
+                <ModalBody ref={ref}>{props.children}</ModalBody>
+              )),
+            }}
+          >
+            <CaptureLabelContainer>
+              <CaptureHeader>{captureDetails.name || 'unknown'}</CaptureHeader>
+            </CaptureLabelContainer>
             <video width="100%" controls>
               <source
                 src={`${BASE_MEDIA_PATH}${VIDEOS_PATH}${captureDetails.capture}.mp4`}
                 type="video/webm"
               />
             </video>
-            <div>
+            <CaptureLabelContainer>
               {captureDetails.timeLabel}
               <Details>
                 <DetailsSpan>Type: {captureDetails.description || 'Unknown class'}</DetailsSpan>
                 <DetailsSpan>MMSI: {captureDetails.mmsi || 'Unknown'}</DetailsSpan>
                 <DetailsSpan>Size: {captureDetails.size || 'Unknown'}</DetailsSpan>
               </Details>
-            </div>
+            </CaptureLabelContainer>
             <CloseButton>
               <Button onClick={resetHash}>Close</Button>
             </CloseButton>

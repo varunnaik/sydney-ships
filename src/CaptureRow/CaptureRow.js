@@ -28,6 +28,7 @@ const CaptureRowTitle = styled.h6`
     max-width: 100%;
     border-right: 0;
     background: #deebff;
+    order: 1; /* Move title to top instead of bottom */
   }
 `;
 
@@ -40,6 +41,7 @@ const TitleBox = styled.div`
     transform: rotate(0deg);
     width: auto;
     line-height: auto;
+    margin-top: 1px;
   }
 `;
 
