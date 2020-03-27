@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getCapturesByDate } from './fileparser';
 import CaptureContainer from './CaptureContainer';
+import CaptureViewer from './CaptureViewer';
 import { BASE_MEDIA_PATH, MANIFEST_FILE } from './constants';
 
 const AppContainer = styled.section`
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <AppContainer>
+      <CaptureViewer shipInfo={shipInfo}></CaptureViewer>
       <CaptureContainer rows={captureRows} shipInfo={shipInfo} />
     </AppContainer>
   );

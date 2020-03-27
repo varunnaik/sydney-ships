@@ -35,6 +35,7 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
   // Logic to scroll to the given day in URL
   const currentDay = useRef(null);
   useLayoutEffect(() => {
+    console.log('FIRE');
     if (scrollToDay && currentDay.current) {
       currentDay.current.scrollIntoView();
     }

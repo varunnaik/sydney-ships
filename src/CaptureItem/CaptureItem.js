@@ -58,7 +58,7 @@ const CaptureDate = styled.div`
 const CaptureItemPosterContainer = styled.div`
   background: url(${props => props.poster});
   background-size: cover;
-  width: 300px;
+  width: 400px;
   flex-grow: 1;
 
   @media screen and (max-width: 600px) {
@@ -79,11 +79,22 @@ const getShortDescription = description => {
   return description.split(' ')[0].replace(/,$/, '');
 };
 
+const setLocationHash = capture => {
+  let hash = window.location.hash;
+  const currentCapture = window.location.hash.match(/capture=([^&]*)/);
+
+  if (currentCapture && currentCapture.length > 1) {
+    window.location.hash = hash.replace(currentCapture.pop(), capture);
+  } else {
+    window.location.hash = window.location.hash + `&capture=${capture}`;
+  }
+};
+
 export const CaptureItem = ({ item, shipInfo, scrollPosition }) => {
   const { description, name } = shipInfo[item.mmsi];
-  console.log(`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${PLACEHOLDER_THUMBNAIL}`);
+
   return (
-    <CaptureItemContainer>
+    <CaptureItemContainer onClick={() => setLocationHash(item.capture)}>
       <CaptureDateTime>
         <CaptureDate>{item.dateLabel}&nbsp;</CaptureDate>
         <CaptureTime>{item.time}</CaptureTime>

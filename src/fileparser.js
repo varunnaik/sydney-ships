@@ -1,9 +1,12 @@
 import moment from 'moment';
 import 'moment-timezone';
+
+const getMMSIFromCaptureId = captureId => captureId.substring(0, 9);
+const getTimestampFromCaptureId = captureId => captureId.substring(9);
 export const getCapturesByDate = ({ captures }) => {
   const capturesByDate = captures.reduce((capturesByDay, capture) => {
-    const mmsi = capture.substring(0, 9);
-    const timestamp = capture.substring(9);
+    const mmsi = getMMSIFromCaptureId(capture);
+    const timestamp = getTimestampFromCaptureId(capture);
     const captureDate = moment.unix(timestamp);
     const byDay = captureDate.tz('Australia/Sydney').format('YYYY-MM-DD');
     const dateLabel = captureDate.tz('Australia/Sydney').format('ll');
@@ -24,4 +27,19 @@ export const getCapturesByDate = ({ captures }) => {
   }, {});
 
   return capturesByDate;
+};
+
+export const getCaptureDetails = (capture, shipInfo) => {
+  const mmsi = getMMSIFromCaptureId(capture);
+  const timestamp = getTimestampFromCaptureId(capture);
+
+  return {
+    capture,
+    mmsi,
+    timeLabel: moment
+      .unix(timestamp)
+      .tz('Australia/Sydney')
+      .format('LLLL z'),
+    ...shipInfo[mmsi],
+  };
 };
