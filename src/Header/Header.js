@@ -38,6 +38,14 @@ const DatePickerButtonBox = styled.div`
   padding-left: 10px;
   height: 20px;
   margin-right: 20px;
+
+  @media screen and (max-width: 600px) {
+    margin: 0 5px 0 5px;
+    padding-left: 0px;
+    .react-datepicker__input-container {
+      width: auto;
+    }
+  }
 `;
 
 const DatePickerControl = styled(Button)`
@@ -46,14 +54,25 @@ const DatePickerControl = styled(Button)`
 
 const ShipSelect = styled(Select)`
   text-transform: capitalize;
-  min-width: 150px;
+  min-width: 130px;
+
+  @media screen and (max-width: 600px) {
+    margin: 0 5px 0 0;
+  }
+
+  // Hacks around react-select not allowing its height to be set
   .react-select__placeholder {
     color: rgb(66, 82, 110) !important;
+    top: 45%;
   }
-  // .react-select__control {
-  //   max-height: 36px;
-  //   min-height: 36px;
-  // }
+
+  .react-select__dropdown-indicator {
+    padding-top: 4px !important;
+  }
+  .react-select__control {
+    max-height: 36px;
+    min-height: 36px;
+  }
   * > * {
     text-transform: capitalize;
     max-height: 36px;

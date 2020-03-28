@@ -71,7 +71,7 @@ const CaptureItemPosterContainer = styled.div`
   @media screen and (max-width: 600px) {
     max-width: 100%;
     width: 100%;
-    height: auto;
+    height: 100%;
   }
 `;
 
