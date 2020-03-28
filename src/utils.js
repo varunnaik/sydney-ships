@@ -9,3 +9,11 @@ export const setLocationHash = (prefix, value) => {
     window.location.hash = window.location.hash + `&${prefix}=${value}`;
   }
 };
+
+export const clearHash = (prefix = null) => {
+  if (prefix) {
+    const re = new RegExp(`[&]*${prefix}=[^&]*`);
+    return (window.location.hash = window.location.hash.replace(re, ''));
+  }
+  window.location.hash = '';
+};

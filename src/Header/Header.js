@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Button from '@atlaskit/button';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
+import Select from '@atlaskit/select';
 import { setLocationHash } from '../utils';
 import { HEADER_HEIGHT } from '../constants';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -36,13 +37,40 @@ const DatePickerButtonBox = styled.div`
 
   padding-left: 10px;
   height: 20px;
+  margin-right: 20px;
 `;
 
 const DatePickerControl = styled(Button)`
-  margin-top: -5px;
+  margin-top: -6px;
 `;
 
-export const Header = ({ dates }) => {
+const ShipSelect = styled(Select)`
+  text-transform: capitalize;
+  min-width: 150px;
+  .react-select__placeholder {
+    color: rgb(66, 82, 110) !important;
+  }
+  // .react-select__control {
+  //   max-height: 36px;
+  //   min-height: 36px;
+  // }
+  * > * {
+    text-transform: capitalize;
+    max-height: 36px;
+  }
+`;
+
+export const Header = ({ dates, highlights, shipInfo, onShipSelect }) => {
+  const selectEntries = Object.entries(shipInfo)
+    .map(([mmsi, { name }]) => ({
+      label: name.toLowerCase(),
+      value: mmsi,
+    }))
+    .filter(entry => entry.label !== '')
+    .sort((a, b) => a.label > b.label);
+
+  selectEntries.splice(0, 0, { label: 'All', value: '' });
+
   return (
     <HeaderContainer>
       <Heading>Sydney Ships</Heading>
@@ -54,6 +82,13 @@ export const Header = ({ dates }) => {
           </DatePickerButtonBox>
         }
         onChange={date => setLocationHash('day', moment(date).format('YYYY-MM-DD'))}
+      />
+      <ShipSelect
+        className="single-select"
+        classNamePrefix="react-select"
+        placeholder="View Ship"
+        options={selectEntries}
+        onChange={onShipSelect}
       />
     </HeaderContainer>
   );

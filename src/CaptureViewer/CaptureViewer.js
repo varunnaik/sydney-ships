@@ -4,6 +4,7 @@ import Button from '@atlaskit/button';
 import styled from 'styled-components';
 import { getCaptureDetails } from '../fileparser';
 import { BASE_MEDIA_PATH, VIDEOS_PATH } from '../constants';
+import { clearHash } from '../utils';
 
 const CloseButton = styled.div`
   display: block;
@@ -49,10 +50,6 @@ const getCaptureFromHash = () => {
   return match && match.pop();
 };
 
-const resetHash = () => {
-  window.location.hash = window.location.hash.replace(/[&]+capture=\d*/, '');
-};
-
 const showHideViewer = (setCaptureDetails, shipInfo) => {
   const capture = getCaptureFromHash();
 
@@ -85,7 +82,7 @@ export const CaptureViewer = ({ shipInfo }) => {
         {captureDetails && (
           <ModalDialog
             width={'large'}
-            onClose={resetHash}
+            onClose={() => clearHash('capture')}
             components={{
               Body: React.forwardRef((props, ref) => (
                 <ModalBody ref={ref}>{props.children}</ModalBody>
@@ -110,7 +107,7 @@ export const CaptureViewer = ({ shipInfo }) => {
               </Details>
             </CaptureLabelContainer>
             <CloseButton>
-              <Button onClick={resetHash}>Close</Button>
+              <Button onClick={() => clearHash('capture')}>Close</Button>
             </CloseButton>
             <br />
           </ModalDialog>

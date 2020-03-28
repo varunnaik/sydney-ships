@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getCapturesByDate } from './fileparser';
+import { getCapturesByDate, getCapturesByShipAndDate } from './fileparser';
 import CaptureContainer from './CaptureContainer';
 import CaptureViewer from './CaptureViewer';
 import Header from './Header';
 import { BASE_MEDIA_PATH, MANIFEST_FILE } from './constants';
+import { clearHash } from './utils';
 
 const AppContainer = styled.section`
   @import url('https://use.typekit.net/hkh4msx.css');
   font-family: fira-sans, sans-serif;
 `;
 
+const onShipSelect = ({ value: mmsi }, allCaptures, setCaptureRows) => {
+  clearHash('day');
+  const captures = getCapturesByShipAndDate(mmsi, allCaptures);
+  setCaptureRows(captures);
+};
+
 function App() {
   const [captureRows, setCaptureRows] = useState({});
-  const [shipInfo, setShipInfo] = useState({});
+  const [shipData, setShipData] = useState({ info: {}, highlights: {}, captures: {} });
 
   useEffect(() => {
     const fetchCaptures = async () => {
       const data = await fetch(`${BASE_MEDIA_PATH}${MANIFEST_FILE}`).then(response =>
         response.json()
       );
-      setShipInfo(data.info);
+
+      setShipData(data);
       setCaptureRows(getCapturesByDate(data));
     };
 
@@ -29,9 +37,14 @@ function App() {
 
   return (
     <AppContainer>
-      <Header dates={Object.keys(captureRows)} />
-      <CaptureViewer shipInfo={shipInfo}></CaptureViewer>
-      <CaptureContainer rows={captureRows} shipInfo={shipInfo} />
+      <Header
+        dates={Object.keys(captureRows)}
+        highlights={shipData.highlights}
+        shipInfo={shipData.info}
+        onShipSelect={v => onShipSelect(v, shipData.captures, setCaptureRows)}
+      />
+      <CaptureViewer shipInfo={shipData.info}></CaptureViewer>
+      <CaptureContainer rows={captureRows} shipInfo={shipData.info} />
     </AppContainer>
   );
 }

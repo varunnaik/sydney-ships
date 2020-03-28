@@ -43,3 +43,8 @@ export const getCaptureDetails = (capture, shipInfo) => {
     ...shipInfo[mmsi],
   };
 };
+
+export const getCapturesByShipAndDate = (mmsi, captures) => {
+  const filteredCaptures = captures.filter(c => c.startsWith(mmsi));
+  return getCapturesByDate({ captures: filteredCaptures });
+};
