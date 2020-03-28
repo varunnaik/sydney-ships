@@ -52,7 +52,6 @@ const getCaptureFromHash = () => {
 
 const showHideViewer = (setCaptureDetails, shipInfo) => {
   const capture = getCaptureFromHash();
-
   if (capture) {
     return setCaptureDetails(getCaptureDetails(capture, shipInfo));
   }
@@ -64,11 +63,12 @@ export const CaptureViewer = ({ shipInfo }) => {
 
   // Logic to show/hide self
   useLayoutEffect(() => {
+    const callback = () => showHideViewer(setCaptureDetails, shipInfo);
     // If user types in new day scroll to it immediately
-    window.addEventListener('hashchange', () => showHideViewer(setCaptureDetails, shipInfo));
+    window.addEventListener('hashchange', callback);
 
     return () => {
-      window.removeEventListener('hashchange', () => showHideViewer(setCaptureDetails, shipInfo));
+      window.removeEventListener('hashchange', callback);
     };
   });
 

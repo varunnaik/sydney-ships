@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import stringSimilarity from 'string-similarity';
 import { trackWindowScroll } from 'react-lazy-load-image-component';
 import CaptureRow from '../CaptureRow';
+import { getLocationHash } from '../utils';
 
 import { HEADER_HEIGHT } from '../constants';
 
@@ -16,8 +17,8 @@ const CaptureContainerContainer = styled.div`
 
 const getScrollPosition = allDays => {
   // Always returns a date in the list of allDays, even if the day entered in the URL is not present in that list
-  const match = window.location.hash.match(/day=([^&]*)/);
-  const day = match && match.pop();
+
+  const day = getLocationHash('day');
 
   if (!day) return null;
 
@@ -45,13 +46,15 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
       window.scrollTo(0, currentDay.current.offsetTop - HEADER_HEIGHT);
     }
 
+    const scrollToDayCallback = () => {
+      setScrollToDay(() => getScrollPosition(allDays));
+    };
+
     // If user types in new day scroll to it immediately
-    window.addEventListener('hashchange', () => setScrollToDay(() => getScrollPosition(allDays)));
+    window.addEventListener('hashchange', scrollToDayCallback);
 
     return () => {
-      window.removeEventListener('hashchange', () =>
-        setScrollToDay(() => getScrollPosition(allDays))
-      );
+      window.removeEventListener('hashchange', scrollToDayCallback);
     };
   });
 

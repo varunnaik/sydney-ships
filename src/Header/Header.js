@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Button from '@atlaskit/button';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import Select from '@atlaskit/select';
-import { setLocationHash } from '../utils';
+import { setLocationHash, getLocationHash } from '../utils';
 import { HEADER_HEIGHT } from '../constants';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -80,6 +80,10 @@ const ShipSelect = styled(Select)`
 `;
 
 export const Header = ({ dates, highlights, shipInfo, onShipSelect }) => {
+  const currentDate = getLocationHash('day');
+  const [selectedDate, setSelectedDate] = useState(
+    currentDate ? new Date(currentDate) : new Date()
+  );
   const selectEntries = Object.entries(shipInfo)
     .map(([mmsi, { name }]) => ({
       label: name.toLowerCase(),
@@ -100,7 +104,12 @@ export const Header = ({ dates, highlights, shipInfo, onShipSelect }) => {
             <DatePickerControl iconAfter={<CalendarIcon />}>Go To Date</DatePickerControl>
           </DatePickerButtonBox>
         }
-        onChange={date => setLocationHash('day', moment(date).format('YYYY-MM-DD'))}
+        onChange={date => {
+          const dateObj = moment(date);
+          setLocationHash('day', dateObj.format('YYYY-MM-DD'));
+          setSelectedDate(dateObj.toDate());
+        }}
+        selected={selectedDate}
       />
       <ShipSelect
         className="single-select"

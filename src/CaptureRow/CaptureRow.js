@@ -54,7 +54,7 @@ export const CaptureRow = ({ title, items, shipInfo, scrollIntoViewRef, scrollPo
       {items.map(item => (
         <CaptureItem
           item={item}
-          shipInfo={shipInfo}
+          shipInfo={shipInfo[item.mmsi]}
           key={item.capture}
           scrollPosition={scrollPosition}
         />

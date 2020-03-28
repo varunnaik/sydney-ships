@@ -1,6 +1,8 @@
-import React, { createRef } from 'react';
+import React, { memo, createRef } from 'react';
 import styled from 'styled-components';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+// import 'react-lazy-load-image-component/src/effects/black-and-white.css';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { BASE_MEDIA_PATH, THUMBNAILS_PATH, PLACEHOLDER_THUMBNAIL } from '../constants';
 import { setLocationHash } from '../utils';
 
@@ -71,7 +73,6 @@ const CaptureItemPosterContainer = styled.div`
   @media screen and (max-width: 600px) {
     max-width: 100%;
     width: 100%;
-    height: 100%;
   }
 `;
 
@@ -84,6 +85,13 @@ const CaptureItemPoster = styled(LazyLoadImage)`
   }
 `;
 
+const shouldRerender = (oldProps, newProps) => {
+  return (
+    oldProps.shipInfo.name === newProps.shipInfo.name &&
+    oldProps.item.capture === newProps.item.capture
+  );
+};
+
 const getShortDescription = description => {
   if (description === 'Not available (default)') {
     return 'Not Available';
@@ -91,8 +99,8 @@ const getShortDescription = description => {
   return description.split(' ')[0].replace(/,$/, '');
 };
 
-export const CaptureItem = ({ item, shipInfo, scrollPosition }) => {
-  const { description, name } = shipInfo[item.mmsi];
+export const CaptureItem = memo(({ item, shipInfo, scrollPosition }) => {
+  const { description, name } = shipInfo;
   const imgRef = createRef();
 
   return (
@@ -107,6 +115,7 @@ export const CaptureItem = ({ item, shipInfo, scrollPosition }) => {
       >
         <CaptureItemPoster
           ref={imgRef}
+          effect="blur"
           scrollPosition={scrollPosition}
           src={`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${item.capture}.jpg`}
         ></CaptureItemPoster>
@@ -117,4 +126,4 @@ export const CaptureItem = ({ item, shipInfo, scrollPosition }) => {
       </CaptureItemTitle>
     </CaptureItemContainer>
   );
-};
+}, shouldRerender);

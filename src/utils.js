@@ -1,3 +1,8 @@
+export const getLocationHash = prefix => {
+  const re = new RegExp(`${prefix}=([^&]*)`);
+  const match = window.location.hash.match(re);
+  return match && match.pop();
+};
 export const setLocationHash = (prefix, value) => {
   let hash = window.location.hash;
   const re = new RegExp(`${prefix}=([^&]*)`);
