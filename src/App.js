@@ -12,6 +12,18 @@ const AppContainer = styled.section`
   font-family: fira-sans, sans-serif;
 `;
 
+const Loader = styled.div`
+  position: fixed;
+  z-index: -2;
+  height: 50px;
+  width: 100%;
+  font-size: 16px;
+  margin-top: 50px;
+  ::before {
+    content: 'Loading...';
+  }
+`;
+
 const onShipSelect = ({ value: mmsi }, allCaptures, setCaptureRows) => {
   clearHash('day');
   const captures = getCapturesByShipAndDate(mmsi, allCaptures);
@@ -43,6 +55,7 @@ function App() {
         shipInfo={shipData.info}
         onShipSelect={v => onShipSelect(v, shipData.captures, setCaptureRows)}
       />
+      <Loader />
       <CaptureViewer shipInfo={shipData.info}></CaptureViewer>
       <CaptureContainer rows={captureRows} shipInfo={shipData.info} />
     </AppContainer>

@@ -1,7 +1,6 @@
 import React, { memo, createRef } from 'react';
 import styled from 'styled-components';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-// import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { BASE_MEDIA_PATH, THUMBNAILS_PATH, PLACEHOLDER_THUMBNAIL } from '../constants';
 import { setLocationHash } from '../utils';
@@ -14,6 +13,7 @@ const CaptureItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 200px;
+  background: white;
 
   :hover {
     background: rgba(187, 239, 253, 0.3);

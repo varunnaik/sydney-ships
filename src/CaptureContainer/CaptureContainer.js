@@ -10,6 +10,7 @@ import { HEADER_HEIGHT } from '../constants';
 const CaptureContainerContainer = styled.div`
   box-sizing: border-box;
   padding-top: ${HEADER_HEIGHT}px;
+  background: white;
   @media screen and (max-width: 600px) {
     overflow-x: hidden;
   }
