@@ -54,10 +54,11 @@ const DatePickerControl = styled(Button)`
 
 const ShipSelect = styled(Select)`
   text-transform: capitalize;
-  min-width: 130px;
+  min-width: 190px;
 
   @media screen and (max-width: 600px) {
     margin: 0 5px 0 0;
+    min-width: 130px;
   }
 
   // Hacks around react-select not allowing its height to be set

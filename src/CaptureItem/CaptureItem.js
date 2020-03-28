@@ -85,7 +85,7 @@ const CaptureItemPoster = styled(LazyLoadImage)`
   }
 `;
 
-const shouldRerender = (oldProps, newProps) => {
+const arePropsEqual = (oldProps, newProps) => {
   return (
     oldProps.shipInfo.name === newProps.shipInfo.name &&
     oldProps.item.capture === newProps.item.capture
@@ -126,4 +126,4 @@ export const CaptureItem = memo(({ item, shipInfo, scrollPosition }) => {
       </CaptureItemTitle>
     </CaptureItemContainer>
   );
-}, shouldRerender);
+}, arePropsEqual);
