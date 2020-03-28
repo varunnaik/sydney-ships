@@ -29,7 +29,7 @@ function App() {
 
   return (
     <AppContainer>
-      <Header />
+      <Header dates={Object.keys(captureRows)} />
       <CaptureViewer shipInfo={shipInfo}></CaptureViewer>
       <CaptureContainer rows={captureRows} shipInfo={shipInfo} />
     </AppContainer>

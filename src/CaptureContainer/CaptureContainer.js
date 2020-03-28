@@ -4,9 +4,11 @@ import stringSimilarity from 'string-similarity';
 import { trackWindowScroll } from 'react-lazy-load-image-component';
 import CaptureRow from '../CaptureRow';
 
+import { HEADER_HEIGHT } from '../constants';
+
 const CaptureContainerContainer = styled.div`
   box-sizing: border-box;
-  padding-top: 35px; /* Accomodate header menu */
+  padding-top: ${HEADER_HEIGHT}px;
   @media screen and (max-width: 600px) {
     overflow-x: hidden;
   }
@@ -40,7 +42,7 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
   const currentDay = useRef(null);
   useLayoutEffect(() => {
     if (scrollToDay && currentDay.current) {
-      currentDay.current.scrollIntoView();
+      window.scrollTo(0, currentDay.current.offsetTop - HEADER_HEIGHT);
     }
 
     // If user types in new day scroll to it immediately

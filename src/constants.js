@@ -3,3 +3,4 @@ export const MANIFEST_FILE = 'captures.json';
 export const THUMBNAILS_PATH = 'thumb/';
 export const VIDEOS_PATH = 'video/';
 export const PLACEHOLDER_THUMBNAIL = 'placeholder.jpg';
+export const HEADER_HEIGHT = 43;

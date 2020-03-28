@@ -2,6 +2,7 @@ import React, { createRef } from 'react';
 import styled from 'styled-components';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { BASE_MEDIA_PATH, THUMBNAILS_PATH, PLACEHOLDER_THUMBNAIL } from '../constants';
+import { setLocationHash } from '../utils';
 
 const CaptureItemContainer = styled.div`
   box-sizing: border-box;
@@ -79,7 +80,7 @@ const CaptureItemPoster = styled(LazyLoadImage)`
   width: 100%;
   height: 100%;
   @media screen and (max-width: 600px) {
-    height: auto;
+    min-height: 100%;
   }
 `;
 
@@ -90,23 +91,12 @@ const getShortDescription = description => {
   return description.split(' ')[0].replace(/,$/, '');
 };
 
-const setLocationHash = capture => {
-  let hash = window.location.hash;
-  const currentCapture = window.location.hash.match(/capture=([^&]*)/);
-
-  if (currentCapture && currentCapture.length > 1) {
-    window.location.hash = hash.replace(currentCapture.pop(), capture);
-  } else {
-    window.location.hash = window.location.hash + `&capture=${capture}`;
-  }
-};
-
 export const CaptureItem = ({ item, shipInfo, scrollPosition }) => {
   const { description, name } = shipInfo[item.mmsi];
   const imgRef = createRef();
 
   return (
-    <CaptureItemContainer onClick={() => setLocationHash(item.capture)}>
+    <CaptureItemContainer onClick={() => setLocationHash('capture', item.capture)}>
       <CaptureDateTime>
         <CaptureDate>{item.dateLabel}&nbsp;</CaptureDate>
         <CaptureTime>{item.time}</CaptureTime>
