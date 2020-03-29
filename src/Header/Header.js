@@ -19,7 +19,6 @@ const HeaderContainer = styled.div`
   height: ${HEADER_HEIGHT}px;
   margin-bottom: 1px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   position: fixed;
   z-index: 490; /* Keep it below the Atlassian Modal dialog */
@@ -32,7 +31,7 @@ const Heading = styled.h1`
   line-height: 1;
 
   @media screen and (max-width: 600px) {
-    max-width: 60px;
+    max-width: 100px;
   }
 `;
 
