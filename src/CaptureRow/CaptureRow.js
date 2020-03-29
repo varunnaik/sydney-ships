@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import CaptureItem from '../CaptureItem';
 
@@ -45,11 +45,7 @@ const TitleBox = styled.div`
   }
 `;
 
-const arePropsEqual = (oldProps, newProps) => {
-  return oldProps.items.length === newProps.items.length && oldProps.title === newProps.title;
-};
-
-export const CaptureRow = memo(({ title, items, shipInfo, scrollIntoViewRef, scrollPosition }) => {
+export const CaptureRow = ({ title, items, shipInfo, scrollIntoViewRef, scrollPosition }) => {
   return (
     <CaptureRowContainer ref={scrollIntoViewRef}>
       <CaptureRowTitle>
@@ -65,4 +61,4 @@ export const CaptureRow = memo(({ title, items, shipInfo, scrollIntoViewRef, scr
       ))}
     </CaptureRowContainer>
   );
-}, arePropsEqual);
+};

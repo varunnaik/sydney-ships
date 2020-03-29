@@ -61,7 +61,7 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
 
   return (
     <CaptureContainerContainer>
-      {allDays.slice(0, 4).map(day => (
+      {allDays.map(day => (
         <CaptureRow
           scrollIntoViewRef={scrollToDay === day ? currentDay : undefined}
           title={day}
