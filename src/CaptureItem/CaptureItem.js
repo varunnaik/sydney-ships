@@ -31,6 +31,11 @@ const CaptureItemContainer = styled.div`
     border-right: 0;
     border-left: 0;
   }
+
+  // Fix for react-lazy-image-load component
+  .lazy-load-image-background {
+    flex-grow: 1 !important;
+  }
 `;
 
 const CaptureItemTitle = styled.div`
@@ -64,6 +69,7 @@ const CaptureItemPoster = styled(LazyLoadImage)`
   border: 0;
   width: 400px;
   height: 100%;
+
   @media screen and (max-width: 600px) {
     width: 100%;
     min-height: 100%;
