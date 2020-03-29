@@ -2,6 +2,7 @@
   "name": "shippix-viewer-next",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://blog.vnaik.com/sydney-ships/",
   "dependencies": {
     "@atlaskit/button": "13.3.9",
     "@atlaskit/icon": "20.1.0",
