@@ -6,10 +6,9 @@ import styled from 'styled-components';
 const CloseButton = styled.div`
   display: inline-block;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 5px;
   text-align: center;
-  color: blue;
-  font-size: 13px;
+  font-size: 15px;
 `;
 
 const ModalBody = styled.div`
@@ -26,7 +25,9 @@ export const AboutDialog = ({ onClose }) => {
           onClose={onClose}
           components={{
             Body: React.forwardRef((props, ref) => (
-              <ModalBody ref={ref}>{props.children}</ModalBody>
+              <ModalBody ref={ref} onClick={onClose}>
+                {props.children}
+              </ModalBody>
             )),
           }}
         >
@@ -48,9 +49,6 @@ export const AboutDialog = ({ onClose }) => {
           <p>
             Project on Github: <a href="https://github.com/varunnaik/shippix">Sydney Ships</a>
           </p>
-          <p>
-            <strong>Notes</strong>
-          </p>
           <ul>
             <li>
               This photographs mostly cruise ships and their refuelling tankers (and sometimes
@@ -62,7 +60,6 @@ export const AboutDialog = ({ onClose }) => {
               ships have their AIS transponders switched off, or because the capture setup was down.
             </li>
           </ul>
-          <p></p>
           <p>
             <small>&copy; 2020 Varun Naik</small>
           </p>
