@@ -45,6 +45,17 @@ const ModalBody = styled.div`
   }
 `;
 
+const CopyrightText = styled.span`
+  color: #888;
+  font-size: 10px;
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+  @media screen and (max-width: 600px) {
+    padding-right: 4px;
+  }
+`;
+
 const getCaptureFromHash = () => {
   const match = window.location.hash.match(/capture=([^&]*)/);
   return match && match.pop();
@@ -106,9 +117,13 @@ export const CaptureViewer = ({ shipInfo }) => {
                 <DetailsSpan>Size: {captureDetails.size || 'Unknown'}</DetailsSpan>
               </Details>
             </CaptureLabelContainer>
+
             <CloseButton>
               <Button onClick={() => clearHash('capture')}>Close</Button>
             </CloseButton>
+
+            <CopyrightText>&copy; 2020 Varun Naik</CopyrightText>
+
             <br />
           </ModalDialog>
         )}
