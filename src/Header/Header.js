@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Button from '@atlaskit/button';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import Select from '@atlaskit/select';
-import { setLocationHash, getLocationHash } from '../utils';
+import { setLocationHash, getLocationHash, clearHash } from '../utils';
 import { HEADER_HEIGHT } from '../constants';
 import AboutDialog from '../AboutDialog';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -110,6 +110,8 @@ export const Header = ({ dates, highlights, shipInfo, onShipSelect }) => {
   const [selectedDate, setSelectedDate] = useState(
     currentDate ? new Date(currentDate) : new Date()
   );
+
+  const [selectValue, setSelectValue] = useState();
   const [aboutDialogVisible, setAboutDialogVisible] = useState(false);
   const selectEntries = Object.entries(shipInfo)
     .map(([mmsi, { name }]) => ({
@@ -120,6 +122,17 @@ export const Header = ({ dates, highlights, shipInfo, onShipSelect }) => {
     .sort((a, b) => a.label > b.label);
 
   selectEntries.splice(0, 0, { label: 'All', value: '' });
+
+  useEffect(() => {
+    const currentFilterCode = getLocationHash('filter');
+    if (currentFilterCode) {
+      const value = selectEntries.find(e => e.value === currentFilterCode);
+      if (value) {
+        onShipSelect(value);
+      }
+      setSelectValue(value);
+    }
+  }, [onShipSelect, selectEntries, shipInfo]);
 
   return (
     <>
@@ -146,7 +159,14 @@ export const Header = ({ dates, highlights, shipInfo, onShipSelect }) => {
           classNamePrefix="react-select"
           placeholder="View Ship"
           options={selectEntries}
-          onChange={onShipSelect}
+          onChange={selectedItem => {
+            selectedItem.value
+              ? setLocationHash('filter', selectedItem.value)
+              : clearHash('filter');
+            setSelectValue(selectedItem);
+            onShipSelect(selectedItem);
+          }}
+          value={selectValue}
         />
         <AboutButton onClick={() => setAboutDialogVisible(true)}>About</AboutButton>
         {aboutDialogVisible && (
