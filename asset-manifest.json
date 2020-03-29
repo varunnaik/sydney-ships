@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/static/js/main.2725de7d.chunk.js",
-    "main.js.map": "/static/js/main.2725de7d.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.3b68a519.js",
-    "runtime-main.js.map": "/static/js/runtime-main.3b68a519.js.map",
-    "static/css/2.00edd23d.chunk.css": "/static/css/2.00edd23d.chunk.css",
-    "static/js/2.afe50666.chunk.js": "/static/js/2.afe50666.chunk.js",
-    "static/js/2.afe50666.chunk.js.map": "/static/js/2.afe50666.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.8822fd9aaf9f2ad19a314f9e571f8ac5.js": "/precache-manifest.8822fd9aaf9f2ad19a314f9e571f8ac5.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.00edd23d.chunk.css.map": "/static/css/2.00edd23d.chunk.css.map",
-    "static/css/main.5ecd60fb.chunk.css.map": "/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.afe50666.chunk.js.LICENSE": "/static/js/2.afe50666.chunk.js.LICENSE"
+    "main.css": "/sydney-ships/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/sydney-ships/static/js/main.6c09f688.chunk.js",
+    "main.js.map": "/sydney-ships/static/js/main.6c09f688.chunk.js.map",
+    "runtime-main.js": "/sydney-ships/static/js/runtime-main.bd28061b.js",
+    "runtime-main.js.map": "/sydney-ships/static/js/runtime-main.bd28061b.js.map",
+    "static/css/2.00edd23d.chunk.css": "/sydney-ships/static/css/2.00edd23d.chunk.css",
+    "static/js/2.f68d24a6.chunk.js": "/sydney-ships/static/js/2.f68d24a6.chunk.js",
+    "static/js/2.f68d24a6.chunk.js.map": "/sydney-ships/static/js/2.f68d24a6.chunk.js.map",
+    "index.html": "/sydney-ships/index.html",
+    "precache-manifest.e41bf31406e2dc43cb709ee63171e6c5.js": "/sydney-ships/precache-manifest.e41bf31406e2dc43cb709ee63171e6c5.js",
+    "service-worker.js": "/sydney-ships/service-worker.js",
+    "static/css/2.00edd23d.chunk.css.map": "/sydney-ships/static/css/2.00edd23d.chunk.css.map",
+    "static/css/main.5ecd60fb.chunk.css.map": "/sydney-ships/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.f68d24a6.chunk.js.LICENSE": "/sydney-ships/static/js/2.f68d24a6.chunk.js.LICENSE"
   },
   "entrypoints": [
-    "static/js/runtime-main.3b68a519.js",
+    "static/js/runtime-main.bd28061b.js",
     "static/css/2.00edd23d.chunk.css",
-    "static/js/2.afe50666.chunk.js",
+    "static/js/2.f68d24a6.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.2725de7d.chunk.js"
+    "static/js/main.6c09f688.chunk.js"
   ]
 }
