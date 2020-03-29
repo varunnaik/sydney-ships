@@ -18,7 +18,7 @@ const Loader = styled.div`
   height: 50px;
   width: 100%;
   font-size: 16px;
-  margin-top: 50px;
+  margin: 50px 0 0 10px;
   ::before {
     content: 'Loading...';
   }

@@ -26,6 +26,7 @@ const CaptureItemContainer = styled.div`
 
   @media screen and (max-width: 600px) {
     margin-bottom: 6px;
+    margin-right: 0;
     box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
     min-height: 199px;
     @media screen and (max-width: 600px) {
@@ -67,12 +68,11 @@ const CaptureItemPosterContainer = styled.div`
   background: url(${props => props.poster});
   background-size: cover;
   width: 400px;
-  flex-grow: 1;
-  height: 225px;
 
   @media screen and (max-width: 600px) {
     max-width: 100%;
     width: 100%;
+    height: 100%;
   }
 `;
 
@@ -115,7 +115,7 @@ export const CaptureItem = memo(({ item, shipInfo, scrollPosition }) => {
       >
         <CaptureItemPoster
           ref={imgRef}
-          effect="blur"
+          effect={'blur'}
           scrollPosition={scrollPosition}
           src={`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${item.capture}.jpg`}
         ></CaptureItemPoster>

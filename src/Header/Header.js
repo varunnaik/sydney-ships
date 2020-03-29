@@ -7,6 +7,7 @@ import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import Select from '@atlaskit/select';
 import { setLocationHash, getLocationHash } from '../utils';
 import { HEADER_HEIGHT } from '../constants';
+import AboutDialog from '../AboutDialog';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const HeaderContainer = styled.div`
@@ -18,6 +19,7 @@ const HeaderContainer = styled.div`
   height: ${HEADER_HEIGHT}px;
   margin-bottom: 1px;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   position: fixed;
   z-index: 490; /* Keep it below the Atlassian Modal dialog */
@@ -28,6 +30,10 @@ const Heading = styled.h1`
   padding: 0;
   margin: 0;
   line-height: 1;
+
+  @media screen and (max-width: 600px) {
+    max-width: 60px;
+  }
 `;
 
 const DatePickerButtonBox = styled.div`
@@ -37,13 +43,15 @@ const DatePickerButtonBox = styled.div`
 
   padding-left: 10px;
   height: 20px;
-  margin-right: 20px;
+  margin-right: 5px;
 
   @media screen and (max-width: 600px) {
     margin: 0 5px 0 5px;
     padding-left: 0px;
-    .react-datepicker__input-container {
-      width: auto;
+    max-width: 100px;
+
+    button {
+      padding-left: 0 !important;
     }
   }
 `;
@@ -52,19 +60,35 @@ const DatePickerControl = styled(Button)`
   margin-top: -6px;
 `;
 
+const DatePickerPrompt = styled.span`
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+`;
+
 const ShipSelect = styled(Select)`
   text-transform: capitalize;
   min-width: 190px;
+  margin: 0 5px 0 0;
 
   @media screen and (max-width: 600px) {
-    margin: 0 5px 0 0;
-    min-width: 130px;
+    min-width: 120px;
   }
 
   // Hacks around react-select not allowing its height to be set
   .react-select__placeholder {
     color: rgb(66, 82, 110) !important;
     top: 45%;
+  }
+
+  .react-select__indicators,
+  .react-select__indicator {
+    padding-right: 0; // Allow about button to fit in header on mobile
+    padding-left: 0;
+  }
+
+  .react-select__value-container {
+    padding-right: 0;
   }
 
   .react-select__dropdown-indicator {
@@ -80,11 +104,14 @@ const ShipSelect = styled(Select)`
   }
 `;
 
+const AboutButton = styled(Button)``;
+
 export const Header = ({ dates, highlights, shipInfo, onShipSelect }) => {
   const currentDate = getLocationHash('day');
   const [selectedDate, setSelectedDate] = useState(
     currentDate ? new Date(currentDate) : new Date()
   );
+  const [aboutDialogVisible, setAboutDialogVisible] = useState(false);
   const selectEntries = Object.entries(shipInfo)
     .map(([mmsi, { name }]) => ({
       label: name.toLowerCase(),
@@ -96,29 +123,37 @@ export const Header = ({ dates, highlights, shipInfo, onShipSelect }) => {
   selectEntries.splice(0, 0, { label: 'All', value: '' });
 
   return (
-    <HeaderContainer>
-      <Heading>Sydney Ships</Heading>
-      <DatePicker
-        includeDates={dates.map(d => new Date(d))}
-        customInput={
-          <DatePickerButtonBox>
-            <DatePickerControl iconAfter={<CalendarIcon />}>Go To Date</DatePickerControl>
-          </DatePickerButtonBox>
-        }
-        onChange={date => {
-          const dateObj = moment(date);
-          setLocationHash('day', dateObj.format('YYYY-MM-DD'));
-          setSelectedDate(dateObj.toDate());
-        }}
-        selected={selectedDate}
-      />
-      <ShipSelect
-        className="single-select"
-        classNamePrefix="react-select"
-        placeholder="View Ship"
-        options={selectEntries}
-        onChange={onShipSelect}
-      />
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <Heading>Sydney Ships</Heading>
+        <DatePicker
+          includeDates={dates.map(d => new Date(d))}
+          customInput={
+            <DatePickerButtonBox>
+              <DatePickerControl iconAfter={<CalendarIcon />}>
+                <DatePickerPrompt>Go To Date</DatePickerPrompt>
+              </DatePickerControl>
+            </DatePickerButtonBox>
+          }
+          onChange={date => {
+            const dateObj = moment(date);
+            setLocationHash('day', dateObj.format('YYYY-MM-DD'));
+            setSelectedDate(dateObj.toDate());
+          }}
+          selected={selectedDate}
+        />
+        <ShipSelect
+          className="single-select"
+          classNamePrefix="react-select"
+          placeholder="View Ship"
+          options={selectEntries}
+          onChange={onShipSelect}
+        />
+        <AboutButton onClick={() => setAboutDialogVisible(true)}>About</AboutButton>
+        {aboutDialogVisible && (
+          <AboutDialog onClose={() => setAboutDialogVisible(false)}></AboutDialog>
+        )}
+      </HeaderContainer>
+    </>
   );
 };
