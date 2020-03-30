@@ -2,6 +2,7 @@ import React, { memo, createRef } from 'react';
 import styled from 'styled-components';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import VidPlayIcon from '@atlaskit/icon/glyph/vid-play';
 import { BASE_MEDIA_PATH, THUMBNAILS_PATH, PLACEHOLDER_THUMBNAIL } from '../constants';
 import { setLocationHash } from '../utils';
 
@@ -15,6 +16,7 @@ const CaptureItemContainer = styled.div`
   min-height: 266px;
   background: white;
   width: 400px;
+  position: relative;
 
   :hover {
     background: rgba(187, 239, 253, 0.3);
@@ -78,6 +80,12 @@ const CaptureItemPoster = styled(LazyLoadImage)`
   }
 `;
 
+const PlayIcon = styled.div`
+  position: absolute !important;
+  bottom: 25px;
+  left: 4px;
+`;
+
 const arePropsEqual = (oldProps, newProps) => {
   return (
     oldProps.shipInfo.name === newProps.shipInfo.name &&
@@ -109,7 +117,9 @@ export const CaptureItem = memo(({ item, shipInfo, scrollPosition }) => {
         src={`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${item.capture}.jpg`}
         placeholderSrc={`${BASE_MEDIA_PATH}${THUMBNAILS_PATH}${PLACEHOLDER_THUMBNAIL}`}
       ></CaptureItemPoster>
-
+      <PlayIcon>
+        <VidPlayIcon primaryColor={'white'}></VidPlayIcon>
+      </PlayIcon>
       <CaptureItemTitle>
         {name} ({getShortDescription(description)})
       </CaptureItemTitle>
