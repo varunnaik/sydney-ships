@@ -112,27 +112,30 @@ export const Header = ({ dates, highlights, shipInfo, onShipSelect }) => {
   );
 
   const [selectValue, setSelectValue] = useState();
+  const [selectEntries, setSelectEntries] = useState();
   const [aboutDialogVisible, setAboutDialogVisible] = useState(false);
-  const selectEntries = Object.entries(shipInfo)
-    .map(([mmsi, { name }]) => ({
-      label: name.toLowerCase(),
-      value: mmsi,
-    }))
-    .filter(entry => entry.label !== '')
-    .sort((a, b) => a.label > b.label);
-
-  selectEntries.splice(0, 0, { label: 'All', value: '' });
 
   useEffect(() => {
+    const selectEntries = Object.entries(shipInfo)
+      .map(([mmsi, { name }]) => ({
+        label: name.toLowerCase(),
+        value: mmsi,
+      }))
+      .filter(entry => entry.label !== '')
+      .sort((a, b) => a.label > b.label);
+
+    selectEntries.splice(0, 0, { label: 'All', value: '' });
+    setSelectEntries(selectEntries);
+
     const currentFilterCode = getLocationHash('filter');
     if (currentFilterCode) {
-      const value = selectEntries.find(e => e.value === currentFilterCode);
-      if (value) {
-        onShipSelect(value);
+      const selectValue = selectEntries.find(e => e.value === currentFilterCode);
+      if (selectValue) {
+        onShipSelect(selectValue);
       }
-      setSelectValue(value);
+      setSelectValue(selectValue);
     }
-  }, [onShipSelect, selectEntries, shipInfo]);
+  }, [shipInfo, onShipSelect]);
 
   return (
     <>

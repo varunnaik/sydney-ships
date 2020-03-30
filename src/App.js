@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { getCapturesByDate, getCapturesByShipAndDate } from './fileparser';
 import CaptureContainer from './CaptureContainer';
@@ -24,15 +24,18 @@ const Loader = styled.div`
   }
 `;
 
-const onShipSelect = ({ value: mmsi }, allCaptures, setCaptureRows) => {
-  clearHash('day');
-  const captures = getCapturesByShipAndDate(mmsi, allCaptures);
-  setCaptureRows(captures);
-};
-
 function App() {
   const [captureRows, setCaptureRows] = useState({});
   const [shipData, setShipData] = useState({ info: {}, highlights: {}, captures: {} });
+
+  const onShipSelect = useCallback(
+    ({ value: mmsi }) => {
+      clearHash('day');
+      const captures = getCapturesByShipAndDate(mmsi, shipData.captures);
+      setCaptureRows(captures);
+    },
+    [setCaptureRows, shipData]
+  );
 
   useEffect(() => {
     const fetchCaptures = async () => {
@@ -53,7 +56,7 @@ function App() {
         dates={Object.keys(captureRows)}
         highlights={shipData.highlights}
         shipInfo={shipData.info}
-        onShipSelect={v => onShipSelect(v, shipData.captures, setCaptureRows)}
+        onShipSelect={onShipSelect}
       />
       <Loader />
       <CaptureViewer shipInfo={shipData.info}></CaptureViewer>

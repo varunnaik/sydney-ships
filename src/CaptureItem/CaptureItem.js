@@ -14,6 +14,7 @@ const CaptureItemContainer = styled.div`
   flex-direction: column;
   min-height: 266px;
   background: white;
+  width: 400px;
 
   :hover {
     background: rgba(187, 239, 253, 0.3);
@@ -25,6 +26,7 @@ const CaptureItemContainer = styled.div`
   }
 
   @media screen and (max-width: 600px) {
+    width: 100%;
     margin-bottom: 6px;
     margin-right: 0;
     min-height: 220px;
