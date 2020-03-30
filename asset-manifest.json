@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/sydney-ships/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/sydney-ships/static/js/main.4c6af373.chunk.js",
-    "main.js.map": "/sydney-ships/static/js/main.4c6af373.chunk.js.map",
+    "main.js": "/sydney-ships/static/js/main.65e6627b.chunk.js",
+    "main.js.map": "/sydney-ships/static/js/main.65e6627b.chunk.js.map",
     "runtime-main.js": "/sydney-ships/static/js/runtime-main.bd28061b.js",
     "runtime-main.js.map": "/sydney-ships/static/js/runtime-main.bd28061b.js.map",
     "static/css/2.00edd23d.chunk.css": "/sydney-ships/static/css/2.00edd23d.chunk.css",
-    "static/js/2.00e14463.chunk.js": "/sydney-ships/static/js/2.00e14463.chunk.js",
-    "static/js/2.00e14463.chunk.js.map": "/sydney-ships/static/js/2.00e14463.chunk.js.map",
+    "static/js/2.0ec15f71.chunk.js": "/sydney-ships/static/js/2.0ec15f71.chunk.js",
+    "static/js/2.0ec15f71.chunk.js.map": "/sydney-ships/static/js/2.0ec15f71.chunk.js.map",
     "index.html": "/sydney-ships/index.html",
-    "precache-manifest.6eb0a086ae5b811277794a7b6d2c0ed7.js": "/sydney-ships/precache-manifest.6eb0a086ae5b811277794a7b6d2c0ed7.js",
+    "precache-manifest.465594ceb518fe6943799e8c33eff01b.js": "/sydney-ships/precache-manifest.465594ceb518fe6943799e8c33eff01b.js",
     "service-worker.js": "/sydney-ships/service-worker.js",
     "static/css/2.00edd23d.chunk.css.map": "/sydney-ships/static/css/2.00edd23d.chunk.css.map",
     "static/css/main.5ecd60fb.chunk.css.map": "/sydney-ships/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.00e14463.chunk.js.LICENSE": "/sydney-ships/static/js/2.00e14463.chunk.js.LICENSE"
+    "static/js/2.0ec15f71.chunk.js.LICENSE": "/sydney-ships/static/js/2.0ec15f71.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.bd28061b.js",
     "static/css/2.00edd23d.chunk.css",
-    "static/js/2.00e14463.chunk.js",
+    "static/js/2.0ec15f71.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.4c6af373.chunk.js"
+    "static/js/main.65e6627b.chunk.js"
   ]
 }
