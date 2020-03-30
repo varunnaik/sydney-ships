@@ -44,6 +44,7 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
 
   useEffect(() => {
     setDisplayedPageIndex(PAGE_SIZE);
+    window.scrollTo(0, 0);
   }, [rows]);
 
   const currentDay = useRef(null);
