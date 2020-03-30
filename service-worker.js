@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/sydney-ships/precache-manifest.702554444f4427f33e56af395b6ab5a1.js"
+  "/sydney-ships/precache-manifest.bd8953833583478ade30c09f04945a41.js"
 );
 
 self.addEventListener('message', (event) => {
