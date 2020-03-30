@@ -1,11 +1,13 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import stringSimilarity from 'string-similarity';
 import { trackWindowScroll } from 'react-lazy-load-image-component';
 import CaptureRow from '../CaptureRow';
 import { getLocationHash } from '../utils';
 
-import { HEADER_HEIGHT } from '../constants';
+import { HEADER_HEIGHT, PAGE_SIZE } from '../constants';
+
+const SCROLL_LOAD_THRESHOLD = 400;
 
 const CaptureContainerContainer = styled.div`
   box-sizing: border-box;
@@ -16,7 +18,7 @@ const CaptureContainerContainer = styled.div`
   }
 `;
 
-const getScrollPosition = allDays => {
+const sanitizeScrollToDay = allDays => {
   // Always returns a date in the list of allDays, even if the day entered in the URL is not present in that list
 
   const day = getLocationHash('day');
@@ -37,31 +39,54 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
   const allDays = Object.keys(rows)
     .sort()
     .reverse();
+  const [scrollToDay, setScrollToDay] = useState(sanitizeScrollToDay(allDays));
+  const [displayedPageIndex, setDisplayedPageIndex] = useState(PAGE_SIZE);
 
-  const [scrollToDay, setScrollToDay] = useState(getScrollPosition(allDays));
+  useEffect(() => {
+    setDisplayedPageIndex(PAGE_SIZE);
+  }, [rows]);
 
-  // Logic to scroll to the given day in URL
   const currentDay = useRef(null);
   useLayoutEffect(() => {
+    // Logic to scroll to the given day in URL
     if (scrollToDay && currentDay.current) {
       window.scrollTo(0, currentDay.current.offsetTop - HEADER_HEIGHT);
     }
 
     const scrollToDayCallback = () => {
-      setScrollToDay(() => getScrollPosition(allDays));
+      const scrollToDay = sanitizeScrollToDay(allDays);
+      setDisplayedPageIndex(allDays.indexOf(scrollToDay) + PAGE_SIZE);
+      setScrollToDay(scrollToDay);
+    };
+
+    const infiniteScrollLoader = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + SCROLL_LOAD_THRESHOLD >=
+        document.documentElement.offsetHeight
+      ) {
+        setDisplayedPageIndex(
+          displayedPageIndex + PAGE_SIZE > allDays.length
+            ? allDays.length
+            : displayedPageIndex + PAGE_SIZE
+        );
+      }
     };
 
     // If user types in new day scroll to it immediately
     window.addEventListener('hashchange', scrollToDayCallback);
 
+    // Implement infinite scroll
+    window.addEventListener('scroll', infiniteScrollLoader);
+
     return () => {
       window.removeEventListener('hashchange', scrollToDayCallback);
+      window.removeEventListener('scroll', infiniteScrollLoader);
     };
   });
 
   return (
     <CaptureContainerContainer>
-      {allDays.map(day => (
+      {allDays.slice(0, displayedPageIndex).map(day => (
         <CaptureRow
           scrollIntoViewRef={scrollToDay === day ? currentDay : undefined}
           title={day}

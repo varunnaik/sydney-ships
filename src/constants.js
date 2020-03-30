@@ -4,3 +4,4 @@ export const THUMBNAILS_PATH = 'thumb/';
 export const VIDEOS_PATH = 'video/';
 export const PLACEHOLDER_THUMBNAIL = 'placeholder.jpg';
 export const HEADER_HEIGHT = 43;
+export const PAGE_SIZE = 8;
