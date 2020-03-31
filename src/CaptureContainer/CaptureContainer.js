@@ -43,21 +43,29 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
   const [displayedPageIndex, setDisplayedPageIndex] = useState(PAGE_SIZE);
 
   useEffect(() => {
+    const allDays = Object.keys(rows)
+      .sort()
+      .reverse();
+    const scrollToDay = sanitizeScrollToDay(allDays);
     if (scrollToDay) {
       setDisplayedPageIndex(allDays.indexOf(scrollToDay) + PAGE_SIZE);
+      setScrollToDay(scrollToDay);
     } else {
       setDisplayedPageIndex(PAGE_SIZE);
-      window.scrollTo(0, 0);
     }
-  }, [allDays, rows, scrollToDay]);
+  }, [rows, setDisplayedPageIndex]);
 
   const currentDay = useRef(null);
   useLayoutEffect(() => {
     // Logic to scroll to the given day in URL
     if (scrollToDay && currentDay.current) {
       const scrollPos = currentDay.current.offsetTop - HEADER_HEIGHT;
-      setTimeout(() => window.scrollTo(0, scrollPos), 10); // Ugly but needed to give page a chance to finish laying itself out
-      setScrollToDay(null); // Reset so subsequent infinite scroll rerenders do not jump us back to this position
+      setTimeout(() => {
+        window.scrollTo(0, scrollPos);
+        setScrollToDay(null); // Reset so subsequent infinite scroll rerenders do not jump us back to this position
+      }, 10); // Ugly but needed to give page a chance to finish laying itself out
+    } else if (scrollToDay === 0) {
+      window.scrollTo(0, 0);
     }
 
     const scrollToDayCallback = () => {
@@ -66,7 +74,8 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
       setScrollToDay(scrollToDay);
     };
 
-    const infiniteScrollLoader = () => {
+    const infiniteScrollLoader = e => {
+      console.log(e);
       if (
         window.innerHeight + document.documentElement.scrollTop + SCROLL_LOAD_THRESHOLD >=
         document.documentElement.offsetHeight
@@ -89,7 +98,7 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
       window.removeEventListener('hashchange', scrollToDayCallback);
       window.removeEventListener('scroll', infiniteScrollLoader);
     };
-  }, [scrollToDay, allDays, displayedPageIndex]);
+  });
 
   return (
     <CaptureContainerContainer>
