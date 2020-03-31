@@ -36,7 +36,6 @@ const TitleBox = styled.div`
   transform: rotate(270deg);
   width: 200px;
   line-height: 1em;
-  margin-left: -1px;
   @media screen and (max-width: 600px) {
     transform: rotate(0deg);
     width: auto;

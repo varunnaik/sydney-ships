@@ -43,15 +43,21 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
   const [displayedPageIndex, setDisplayedPageIndex] = useState(PAGE_SIZE);
 
   useEffect(() => {
-    setDisplayedPageIndex(PAGE_SIZE);
-    window.scrollTo(0, 0);
-  }, [rows]);
+    if (scrollToDay) {
+      setDisplayedPageIndex(allDays.indexOf(scrollToDay) + PAGE_SIZE);
+    } else {
+      setDisplayedPageIndex(PAGE_SIZE);
+      window.scrollTo(0, 0);
+    }
+  }, [allDays, rows, scrollToDay]);
 
   const currentDay = useRef(null);
   useLayoutEffect(() => {
     // Logic to scroll to the given day in URL
     if (scrollToDay && currentDay.current) {
-      window.scrollTo(0, currentDay.current.offsetTop - HEADER_HEIGHT);
+      const scrollPos = currentDay.current.offsetTop - HEADER_HEIGHT;
+      setTimeout(() => window.scrollTo(0, scrollPos), 10); // Ugly but needed to give page a chance to finish laying itself out
+      setScrollToDay(null); // Reset so subsequent infinite scroll rerenders do not jump us back to this position
     }
 
     const scrollToDayCallback = () => {
@@ -83,7 +89,7 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
       window.removeEventListener('hashchange', scrollToDayCallback);
       window.removeEventListener('scroll', infiniteScrollLoader);
     };
-  });
+  }, [scrollToDay, allDays, displayedPageIndex]);
 
   return (
     <CaptureContainerContainer>

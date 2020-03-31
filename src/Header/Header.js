@@ -77,7 +77,7 @@ const ShipSelect = styled(Select)`
   // Hacks around react-select not allowing its height to be set
   .react-select__placeholder {
     color: rgb(66, 82, 110) !important;
-    top: 45%;
+    top: 47%;
   }
 
   .react-select__indicators,

@@ -7,7 +7,6 @@ import { BASE_MEDIA_PATH, THUMBNAILS_PATH, PLACEHOLDER_THUMBNAIL } from '../cons
 import { setLocationHash } from '../utils';
 
 const CaptureItemContainer = styled.div`
-  box-sizing: border-box;
   margin-right: 1px;
   margin-bottom: 1px;
   border: 1px solid #eee;
