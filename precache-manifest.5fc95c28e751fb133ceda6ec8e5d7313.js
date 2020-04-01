@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "de82ffbaeb696712694d793b097c58e4",
+    "revision": "4063a40a8ca5e2ec4959f8638fa2a77b",
     "url": "/sydney-ships/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sydney-ships/static/css/2.00edd23d.chunk.css"
   },
   {
-    "revision": "44bd089d8d7606ce4ce6",
+    "revision": "7974edd96ba2353b0c71",
     "url": "/sydney-ships/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/sydney-ships/static/js/2.0ec15f71.chunk.js.LICENSE"
   },
   {
-    "revision": "44bd089d8d7606ce4ce6",
-    "url": "/sydney-ships/static/js/main.defcc12a.chunk.js"
+    "revision": "7974edd96ba2353b0c71",
+    "url": "/sydney-ships/static/js/main.1074a097.chunk.js"
   },
   {
     "revision": "83fe6da894db5cbcb482",
