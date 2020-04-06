@@ -69,13 +69,14 @@ export const CaptureContainer = trackWindowScroll(({ rows, shipInfo, scrollPosit
     }
 
     const scrollToDayCallback = () => {
-      const scrollToDay = sanitizeScrollToDay(allDays);
-      setDisplayedPageIndex(allDays.indexOf(scrollToDay) + PAGE_SIZE);
-      setScrollToDay(scrollToDay);
+      const currentScrollToDay = sanitizeScrollToDay(allDays);
+      if (currentScrollToDay !== scrollToDay) {
+        setDisplayedPageIndex(allDays.indexOf(currentScrollToDay) + PAGE_SIZE);
+        setScrollToDay(currentScrollToDay);
+      }
     };
 
     const infiniteScrollLoader = e => {
-      console.log(e);
       if (
         window.innerHeight + document.documentElement.scrollTop + SCROLL_LOAD_THRESHOLD >=
         document.documentElement.offsetHeight
